@@ -33,23 +33,34 @@ vercel --prod
 
 按提示登录（GitHub 账号最快），一路回车，最后给一个 `https://xxx.vercel.app`。
 
-### 3. GitHub Pages：适合公开给同学看
+### 3. GitHub Pages：仓库已经初始化好了，推上去就行
 
-先在 GitHub 建一个空仓库，然后把 `dist` 里的东西推上去：
+本地已经 `git init` 并提交过第一个版本，`.github/workflows/pages.yml` 会在每次 push 时自动构建并发布。
+
+**第一步**，在 GitHub 网页建一个空仓库：
+
+- 名字建议 `home-items`（网址会变成 `https://你的用户名.github.io/home-items/`）
+- 选 **Public**
+- **不要**勾选 "Add a README / .gitignore / license"，保持空仓库
+
+**第二步**，在本目录执行（把用户名和仓库名换成你的）：
 
 ```bash
-cd dist
-git init
-git add .
-git commit -m "deploy"
-git branch -M main
-git remote add origin https://github.com/你的用户名/仓库名.git
+git remote add origin https://github.com/你的用户名/home-items.git
 git push -u origin main
 ```
 
-仓库 Settings → Pages → Source 选 `main` / `root` → 保存，一分钟后得到 `https://你的用户名.github.io/仓库名/`。
+首次 push 会弹出 GitHub 登录窗口（Git Credential Manager），浏览器点授权即可，不用手动生成 token。
 
-缺点：国内访问 `github.io` 时快时慢。
+**第三步**，去仓库 `Settings → Pages → Build and deployment → Source`，选 **GitHub Actions**。
+
+**第四步**，等 1 分钟，仓库的 Actions 标签页会跑完一次部署，地址显示为：
+
+```
+https://你的用户名.github.io/home-items/
+```
+
+之后每次 `git add . && git commit -m "改了什么" && git push`，网站会自动更新，不用再手动构建。
 
 > 想要国内访问稳定、还能绑自己的域名，就得用阿里云 OSS / 腾讯云 COS 或云服务器，自定义域名需要备案。答辩前时间紧，不建议现弄。
 
