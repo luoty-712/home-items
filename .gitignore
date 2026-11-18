@@ -1,0 +1,8 @@
+# 构建产物（GitHub Actions 会重新生成）
+dist/
+home-items-p0-web.zip
+
+# 系统
+.DS_Store
+Thumbs.db
+desktop.ini
